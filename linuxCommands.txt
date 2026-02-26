@@ -1,0 +1,35 @@
+
+# man <command> -> manual page
+man ls 
+
+----------ls -----------------> list all the files that the folder 
+ls -l -> l-means long listing format -> file permissions | no_of_links(inode) |owner|group|file size(bytes)|lastmodified date time | file name
+ls -la -> a - show all files include hidden  files 
+#absolute path - start from root -> ls /boot #ls <folder_path>
+
+ls -1 #List files one per line:
+ls [-a|--all]  #List all files, including hidden files:
+ls [-F|--classify] #List files with a trailing symbol to indicate file type (directory/, symbolic_link@, executable*, ...)
+ls [-la|-l --all] #List all files in long format (permissions, ownership, size, and modification date)
+ls [-lh|-l --human-readable] #List files in long format with size displayed using human-readable units (KiB, MiB, GiB)
+ls [-lSR| ls [-ltr|-lt --reverse] #List files in long format, sorted by time the file was modified and in reverse order (oldest first)
+ls [-d|--directory] */ #Only list directories
+
+
+------------- cd ----------->#Change the current working directory.
+cd <path/to/directory> #Go to the specified directory eg:cd /usr/bin
+cd ..        #go up to parent of current directory 
+cd           #Go to the home directory of the current user
+cd ~username #cd ~username
+cd -         #Go to the previously chosen directory
+cd /         #root directory 
+
+----------pwd -----> present working directory 
+pwd #Print the current directory 
+pwd [-P|--physical] #Print the current directory, and resolve all symlinks (i.e. show the "physical" path)
+
+-----mkdir---->
+
+
+
+
