@@ -1,3 +1,298 @@
+----------------------- /proc =>  processes => Virtial file system ---------------------------
+kernel runtime information memory-la irukura data files madhiri expose pannum. Disk-la store aagathu.
+---------------/proc main structure ---------------------------------------------------------
+Each PID folder = one running process.
+/proc
+ ├── cpuinfo
+ ├── meminfo
+ ├── loadavg
+ ├── uptime
+ ├── vmstat
+ ├── stat
+ ├── <PID>/
+ │     ├── status
+ │     ├── stat
+ │     ├── cmdline
+ │     ├── sched
+ │     ├── schedstat
+ │     ├── io
+ │     └── fd/
+-----------------------------------------------------------------------------------------
+--------------------top –> Live system monitoring--------------------
+
+top - 10:30:01 up 5 days,  2 users,  load average: 0.30, 0.25, 0.20
+Tasks: 210 total,   1 running, 209 sleeping
+%Cpu(s): 10.0 us,  3.0 sy,  0.0 ni, 86.0 id, 0.5 wa, 0.2 hi, 0.3 si
+MiB Mem : 16000 total,  9000 free,  4000 used, 3000 buff/cache
+MiB Swap:  2048 total, 2048 free
+
+PID USER  PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
+2345 root  20  0 300M 20M 10M S  20   0.2 0:03 nginx 
+
+
+---------------------------------------------------------------------
+------------------Header Section-----------------------------------
+| Field        | Meaning               |
+| ------------ | --------------------- |
+| load average | CPU load (1,5,15 min) |
+| Tasks        | total processes       |
+| running      | CPU currently running |
+| sleeping     | waiting processes     |
+---------------------CPU section----------------------------
+| Column | Meaning              |
+| ------ | -------------------- |
+| us     | user space CPU usage |
+| sy     | kernel usage         |
+| ni     | nice processes       |
+| id     | idle CPU             |
+| wa     | IO wait              |
+| hi     | hardware interrupts  |
+| si     | software interrupts  |
+--------------Memory (In kiB)(1 KiB = 1,024 bytes)---------------------------
+| Column     | Meaning           |
+| ---------- | ----------------- |
+| total      | total RAM         |
+| used       | used RAM          |
+| free       | unused            |
+| buff/cache | kernel page cache |
+---------------------------------Process table---------------------------------
+| Column  | Meaning           |
+| ------- | ----------------- |
+| PID     | process id        |
+| USER    | owner             |
+| PR      | priority          |
+| NI      | nice value        |
+| VIRT    | virtual memory    |
+| RES     | physical RAM used |
+| SHR     | shared memory     |
+| S       | state             |
+| %CPU    | CPU usage         |
+| %MEM    | RAM usage         |
+| TIME+   | total CPU time    |
+| COMMAND | process name      |
+-----------------------------------------------------------------------------
+        ps - Process snapshot
+-----------------------------------------------------------------------------
+ps L => List all ps colums
+ps -eo pid,ppid,user,%cpu,%mem,stat,start,time,cmd
+
+| Column | Meaning        |
+| ------ | -------------- |
+| PID    | process id     |
+| PPID   | parent process |
+| USER   | owner          |
+| %CPU   | CPU usage      |
+| %MEM   | memory usage   |
+| STAT   | process state  |
+| START  | start time     |
+| TIME   | CPU time used  |
+| CMD    | command        |
+--------------------------------STAT -values --------------------------
+| Code | Meaning                         |
+| ---- | ------------------------------- |
+| R    | running                         |
+| S    | sleeping                        |
+| D    | uninterruptible sleep (IO wait) |
+| Z    | zombie                          |
+| T    | stopped                         |
+----------------------------------------------------------------------
+----------------1. Process Identity Columns------------------------------------------
+| Column | Meaning           | Unit   |
+| ------ | ----------------- | ------ |
+| PID    | Process ID        | number |
+| PPID   | Parent process ID | number |
+| PGID   | Process group ID  | number |
+| SID    | Session ID        | number |
+| TID    | Thread ID         | number |
+| UID    | User ID           | number |
+| USER   | Username          | text   |
+| GID    | Group ID          | number |
+| GROUP  | Group name        | text   |
+----------------2. CPU Related Columns----------------------------------
+| Column  | Meaning                    | Unit            |
+| ------- | -------------------------- | --------------- |
+| %CPU    | CPU usage                  | percentage      |
+| TIME    | total CPU time used        | HH:MM:SS        |
+| CPUTIME | CPU time                   | HH:MM:SS        |
+| ETIME   | elapsed time since start   | [[dd-]hh:]mm:ss |
+| NI      | nice value                 | -20 to 19       |
+| PRI     | kernel priority            | number          |
+| PSR     | CPU core currently running | CPU id          |
+--------------------3.Memory Related Columns-----------------------
+| Column | Meaning                        | Unit       |
+| ------ | ------------------------------ | ---------- |
+| %MEM   | RAM usage                      | percentage |
+| RSS    | resident memory (physical RAM) | KB         |
+| VSZ    | virtual memory size            | KB         |
+| SIZE   | process size                   | KB         |
+| SHARE  | shared memory                  | KB         |
+| TRS    | text resident size             | KB         |
+| DRS    | data resident size             | KB         |
+---------------------4. Process State Columns-------------------
+| Column | Meaning              | Unit |
+| ------ | -------------------- | ---- |
+| STAT   | process state        | code |
+| S      | simplified state     | code |
+| WCHAN  | kernel wait function | text |
+----------State codes-------------------------------------
+| Code | Meaning                         |
+| ---- | ------------------------------- |
+| R    | running                         |
+| S    | sleeping                        |
+| D    | uninterruptible sleep (IO wait) |
+| T    | stopped                         |
+| Z    | zombie                          |
+| I    | idle kernel thread              |
+------------------------5. Time Related Columns------------
+| Column | Meaning         | Unit      |
+| ------ | --------------- | --------- |
+| START  | start time      | HH:MM     |
+| LSTART | full start time | date time |
+| ETIME  | elapsed time    | hh:mm:ss  |
+-----------------------6. Terminal Columns----------------
+| Column | Meaning             |
+| ------ | ------------------- |
+| TTY    | terminal associated |
+| TT     | terminal name       |
+-------------------------7. Scheduling Columns---------
+| Column | Meaning             | Unit      |
+| ------ | ------------------- | --------- |
+| PRI    | scheduling priority | number    |
+| NI     | nice value          | -20 to 19 |
+| CLS    | scheduling class    | text      |
+| RTPRIO | realtime priority   | number    |
+| PSR    | CPU core number     | number    |
+--------------------------8. IO / Wait Related---------
+| Column  | Meaning             |
+| ------- | ------------------- |
+| WCHAN   | kernel wait channel |
+| BLOCKED | blocked signals     |
+| PENDING | pending signals     |
+----------------------------9.Thread Related-------------
+| Column | Meaning           |
+| ------ | ----------------- |
+| NLWP   | number of threads |
+| LWP    | thread id         |
+----------------------------------------------------------------
+vmstat => Virtual memory statistics => Memory + CPU + IO behaviour
+----------------------------------------------------------------
+vmstat 1 #live update every 1 sec
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd free buff cache   si so    bi    bo   in   cs us sy id wa st
+ 1  0     0 8000 200  3000    0  0     2     1  100  200 10  3 85  2  0
+------------------------------------------------------------------------
+-----------------Process colums----------------------
+| Column | Meaning            |
+| ------ | ------------------ |
+| r      | runnable processes |
+| b      | blocked processes  |
+------------------memory colum(kiloBystes=>kiB)------------------------
+| Column | Meaning       |
+| ------ | ------------- |
+| swpd   | swap used     | KB
+| free   | free memory   |
+| buff   | buffer memory |
+| cache  | page cache    |
+----------------------swap colum-------------------
+| Column | Meaning               | Unit   |
+| ------ | --------------------- | ------ |
+| si     | swap in (disk → RAM)  | KB/sec |
+| so     | swap out (RAM → disk) | KB/sec |
+------------------------------io (disk IO)---------
+| Column | Meaning                   | Unit       |
+| ------ | ------------------------- | ---------- |
+| bi     | blocks received from disk | blocks/sec |
+| bo     | blocks sent to disk       | blocks/sec |
+--------------------system (kernel activity)-----------
+| Column | Meaning          | Unit           |
+| ------ | ---------------- | -------------- |
+| in     | interrupts       | interrupts/sec |
+| cs     | context switches | switches/sec   |
+--------------------cpu (CPU usage)-----------------
+| Column | Meaning                     | Unit |
+| ------ | --------------------------- | ---- |
+| us     | user CPU usage              | %    |
+| sy     | kernel CPU usage            | %    |
+| id     | idle CPU                    | %    |
+| wa     | IO wait                     | %    |
+| st     | stolen CPU (virtualization) | %    |
+-------------------------------------------------------------
+4. mpstat => multiprocessor statistics => CPU per core usage
+------------------------------------------------------------
+CPU  %usr %nice %sys %iowait %irq %soft %idle
+0     10    0     2     1      0    0    87
+1      5    0     1     0      0    0    94
+-----------------------------------------------------------
+| Column  | Meaning            |
+| ------- | ------------------ |
+| %usr    | user CPU           |
+| %nice   | nice processes     |
+| %sys    | kernel usage       |
+| %iowait | waiting for disk   |
+| %irq    | hardware interrupt |
+| %soft   | software interrupt |
+| %idle   | idle CPU           |
+---------------------------------------------------------------
+        df – Filesystem disk space
+--------------------------------------------------------------
+df -h
+Filesystem   Size Used Avail Use% Mounted on
+/dev/sda1     50G  20G  28G  42% /
+tmpfs          8G   0   8G    0% /dev/shm
+------------------------------------------------------------
+default - 1KB(1024 bytes)
+    df -h: Human-readable (e.g., 10GB, 500MB)
+    df -k: Kilobytes (1024-byte units)
+    df -m: Megabytes
+    df -g: Gigabytes
+    df -H: SI format (powers of 1000) 
+--------------------------------------------------------------
+| Column     | Meaning          |
+| ---------- | ---------------- |
+| Filesystem | disk device      |
+| Size       | total size       |
+| Used       | used space       |
+| Avail      | available space  |
+| Use%       | usage percentage |
+| Mounted on | mount point      |
+---------------------------------------------------------------
+        du => Directory size
+--------------------------------------------------------------
+Key Details on du Units:
+
+    Default: 1024 bytes (1 KiB).
+    Human-Readable (-h): Automatically scales to K, M, G.
+    Kilobytes (-k): Equivalent to --block-size=1K.
+    Megabytes (-m): Equivalent to --block-size=1M.
+    Bytes (-b): Shows actual size in bytes (equivalent to --apparent-size --block-size=1).
+    Custom: You can define a specific block size using --block-size=SIZE
+-----------------------------------------------------------------------
+du -h
+op:
+1.2G logs
+500M backup
+200M app
+| Column | Meaning        |
+| ------ | -------------- |
+| size   | directory size |
+| path   | directory name |
+-----------------------------------------------------------------------------------
+df → filesystem level => total / used / available disk space.
+
+du → specific file or directory => how much disk space occupy 
+---------------------------------------------------------------------------------
+| Filesystem | Usage                        |
+| ---------- | ---------------------------- |
+| ext4       | most common Linux filesystem |
+| xfs        | large server storage         |
+| btrfs      | modern filesystem            |
+| tmpfs      | RAM filesystem               |
+| procfs     | virtual filesystem           |
+----------------------------------------------------------------------------------
+
+
+
+
 
 # man <command> -> manual page
 man ls 
@@ -28,7 +323,7 @@ cd /         #root directory
 pwd #Print the current directory 
 pwd [-P|--physical] #Print the current directory, and resolve all symlinks (i.e. show the "physical" path)
 
------mkdir---->
+
 
 
 
