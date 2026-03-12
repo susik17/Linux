@@ -1,3 +1,17 @@
+ping => Test connection between our computer to another website/computer
+
+$ping -c 10 google.com 
+#exactly send 5 datapackets => ICMP 
+
+
+
+
+
+
+
+
+
+
 # 1. See ALL interfaces (physical + virtual):
 ip link show 
 # Interfaces => ethernet ,wifi , loopback
