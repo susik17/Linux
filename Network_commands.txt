@@ -1,0 +1,42 @@
+# 1. See ALL interfaces (physical + virtual):
+ip link show 
+# Interfaces => ethernet ,wifi , loopback
+
+# 2. Enable/disable loopback (try it!):
+sudo ip link set lo down
+ping 127.0.0.1  # Will FAIL! ❌
+sudo ip link set lo up
+ping 127.0.0.1  # Works again! ✅
+
+# 3. Phone tethering test:
+# Connect phone via USB → Enable USB tethering
+ip addr show usb0  # New interface appears!
+
+============================================================
+ifconfig => Interface configuration
+============================================================
+eg:
+$ ifconfig
+enp195s0f0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether 4c:c5:d9:ae:ec:28  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 405395  bytes 59921005 (59.9 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 405395  bytes 59921005 (59.9 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlp194s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.69.68.65  netmask 255.255.240.0  broadcast 10.69.79.255
+        ether 08:f9:7e:39:48:b7  txqueuelen 1000  (Ethernet)
+        RX packets 32504504  bytes 13807383510 (13.8 GB)
+        RX errors 0  dropped 16966  overruns 0  frame 0
+        TX packets 4153639  bytes 2134738107 (2.1 GB)
+        TX errors 0  dropped 136 overruns 0  carrier 0  collisions 0
+--------------------------------------------------------------------------
